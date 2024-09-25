@@ -1,2 +1,2 @@
-*.docx
+# https://git-scm.com/docs/gitignore
 */**/*/.docx
