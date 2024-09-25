@@ -1,0 +1,1719 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Busoni Letters</title>
+        <author>Steffen Astheimer</author>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>TEI Consortium</publisher>
+        <availability status="free">
+          <p>TEI material can be licensed differently depending on the
+            use you intend to make of it. Hence it is made available
+            under both the CC+BY and BSD-2 licences. The CC+BY licence
+            is generally appropriate for usages which treat TEI content
+            as data or documentation. The BSD-2 licence is generally
+            appropriate for usage of TEI content in a software
+            environment. For further information or clarification,
+            please contact the TEI Consortium (info@tei-c.org).</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Written from scratch.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <head>TEI Complete</head>
+      <p>This TEI customization describes a schema that includes
+        <emph>all</emph> of the TEI P5 modules. This is a very useful
+        starting place for manually creating your own customizations —
+        it is much easier to delete the modules you do not want than to
+        add the modules you do. Furthermore this customization often
+        proves helpful for testing TEI software.</p>
+      <p>However, this particular TEI customization is <emph>not
+        recommended</emph> for actual use for encoding documents. It
+        produces schemas and reference documentation that will be much
+        larger and include many more elements than almost anyone could
+        conceivably ever need. Tempting though it may be simply to have
+        absolutely everything, and <q>just ignore</q> elements not
+        required, experience has shown that their presence makes the
+        documentation harder to read and use, and makes a schema that is
+        far more lax than desired.</p>
+      <p>The <att>n</att> attribute of each <gi>moduleRef</gi> below
+        reflects the chapter number of the TEI <title>Guidelines</title>
+        in which the module being referenced is defined. Note that the
+        modules are generally referred to in the order defined, with the
+        exception that the module for <title level="a">Simple Analytic
+          Mechanisms</title> is referred to before the module for <title level="a">Dictionaries</title>. This is because the class <name type="class">att.lexicographic.normalized</name> (which is
+        defined in <name type="module">analysis</name>) needs to be
+        specified before the class <name type="class">att.lexicographic</name> (which is defined in <name type="module">dictionaries</name>).</p>
+      <p>The first four modules are often
+        called the <soCalled>required</soCalled> modules. However, these
+        modules are not themselves technically required to create a TEI
+        conformant markup language (let alone a useful non-TEI
+        conformant markup language). Rather, they each contain one or
+        more <emph>elements</emph> which are required for TEI
+        conformance.</p>
+      
+      <schemaSpec ident="busoni-letters" start="TEI teiCorpus" targetLang="en" docLang="de" prefix="tei_" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+        <moduleRef n="01" key="tei"/>
+        <moduleRef n="02" key="header"/>
+        <moduleRef n="03" key="core"/>
+        <moduleRef n="04" key="textstructure"/>
+        <moduleRef n="05" key="gaiji"/>
+        <moduleRef n="06" key="verse"/>
+        <moduleRef n="07" key="drama"/>
+        <moduleRef n="08" key="spoken"/>
+        <moduleRef n="17" key="analysis"/>
+        <moduleRef n="09" key="dictionaries"/>
+        <moduleRef n="10" key="msdescription"/>
+        <moduleRef n="11" key="transcr"/>
+        <moduleRef n="12" key="textcrit"/>
+        <moduleRef n="13" key="namesdates"/>
+        <moduleRef n="14" key="figures"/>
+        <moduleRef n="15" key="corpus"/>
+        <moduleRef n="16" key="linking"/>
+        <moduleRef n="18" key="iso-fs"/>
+        <moduleRef n="19" key="nets"/>
+        <moduleRef n="21" key="certainty"/>
+        <moduleRef n="22" key="tagdocs"/>
+        
+        
+        <!-- neue Datentypen für mögliche @key Attribute -->
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.key.persName" mode="add">
+          <content>
+            <dataRef name="token" restriction="E03\d{5}"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.key.title" mode="add">
+          <content>
+            <dataRef name="token" restriction="E0([48][0-9]{5}|1[0-9]{4})|D02[0-9]{5}"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.key.placeName" mode="add">
+          <content>
+            <dataRef name="token" restriction="E05[0-9]{5}"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.key.orgName" mode="add">
+          <content>
+            <dataRef name="token" restriction="E06[0-9]{5}|[A-Z]\w*-[A-Z]\w*"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.key.rs" mode="add">
+          <content>
+            <dataRef name="token" restriction="([ED]0[0-9]{6}\s?)+"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.hash.persName" mode="add">
+          <content>
+            <dataRef name="token" restriction="#E03\d{5}"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.hash.title" mode="add">
+          <content>
+            <dataRef name="token" restriction="#E0([48][0-9]{5}|1[0-9]{4})|#D02[0-9]{5}"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.hash.placeName" mode="add">
+          <content>
+            <dataRef name="token" restriction="#E05[0-9]{5}"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.hash.orgName" mode="add">
+          <content>
+            <dataRef name="token" restriction="#E06[0-9]{5}|[#A-Z]\w*-[A-Z]\w*"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.hash.rs" mode="add">
+          <content>
+            <dataRef name="token" restriction="(#[ED]0[0-9]{6}\s?)+"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.hash.all" mode="add">
+          <content>
+            <dataRef name="token" restriction="#.+"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.hash.target" mode="add">
+          <content>
+            <dataRef name="token" restriction="#.+|http.+|nb/.+"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.xmllang.all" mode="add">
+          <content>
+            <dataRef name="token" restriction="\w+"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.wheniso.all" mode="add">
+          <content>
+            <dataRef name="token" restriction="((-?(\d{4})(-\d{2}){0,2}/?){1,2}|-(-\d{2}){2})(T[0-2]\d:[0-5]\d:[0-5]\d)?|[0-2]\d:[0-5]\d:[0-5]\d"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.reason.gap" mode="add">
+          <content>
+            <dataRef name="token" restriction="((illegible|overwritten|strikethrough|erasure|paper-missing|stamp-missing|beyond-paper|faded|low-ink|ink-blot|hole|stain|seal|paste-over|covered|damage|incomplete)\s?)+"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.rend.size" mode="add">
+          <content>
+            <dataRef name="token" restriction="tin(y|ier)|small(er)?|normal|larger?|huge|scale\(\d+(\.\d+)?,\d+(\.\d+)?\)"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.rend.indent" mode="add">
+          <content>
+            <dataRef name="token" restriction="indent(-(([2-6]-)?neg|[2-6]|([2-6]-)?first(-neg)?))?|no-indent(-first)?|first-right|outside"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.rend.spacing" mode="add">
+          <content>
+            <dataRef name="token" restriction="(space-)?(above|below)"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.rend.highlight" mode="add">
+          <content>
+            <dataRef name="token" restriction="underline([2-9]|-wave|-square|-dashed|-dotted)?(-(black|red|green|yellow|blue|purple|orange|gray|brown|violet))*|italic|bold|majuscule|minuscule|caps|first-cap|sup|sub|spaced-out|antiqua|fraktur|latin|kurrent|circle|(double-)?stroke-(left|right)(-(black|red|green|yellow|blue|purple|orange|gray|brown|violet))?|monogram"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.rend.alignment" mode="add">
+          <content>
+            <dataRef name="token" restriction="align\((left|center|right|justify)\)|rotate\((0|-?45|-?90|-?135|-?180|-?225|-?270|-?315|-?360)\)"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.rend.hyphen" mode="add">
+          <content>
+            <dataRef name="token" restriction="sh|dh|lh|nh"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.rend.after" mode="add">
+          <content>
+            <dataRef name="token" restriction="after:.+"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.rend.quotes" mode="add">
+          <content>
+            <dataRef name="token" restriction="[sdm]q-([du]{2}|guil|chev|Weill)(-straight)?(-[oc]o)?"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.rend.del" mode="add">
+          <content>
+            <dataRef name="token" restriction="strikethrough(-part)?|transformed|erasure|overwritten(-part)?|none|faded"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.rend.layout" mode="add">
+          <content>
+            <dataRef name="token" restriction="round|square|(no)?border"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.rend.colour" mode="add">
+          <content>
+            <dataRef name="token" restriction="black|red|green|yellow|blue|purple|violet|orange|gray|brown"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.rend.outside" mode="add">
+          <content>
+            <dataRef name="token" restriction="outside"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.place.position" mode="add">
+          <content>
+            <dataRef name="token" restriction="((top|bottom|margin)-)?(left|center|right)(-of)?|top|bottom"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.place.addition" mode="add">
+          <content>
+            <dataRef name="token" restriction="inline|above|below|across|remainder|transformed"/>
+          </content>
+        </dataSpec>
+        <dataSpec rend="add" module="custom-module-busoni" ident="busoni.pixel" mode="add">
+          <content>
+            <dataRef name="token" restriction="\d+px"/>
+          </content>
+        </dataSpec>
+        
+        
+
+        
+<!--=======================================================-->
+<!--== Attributklassen (globale Änderungen an Attributen ==-->
+<!--=======================================================-->
+        
+        <!-- @rend -->
+        <classSpec type="atts" ident="att.global.rendition" mode="change">
+          <attList>
+            <attDef ident="rend" mode="replace">
+              <datatype maxOccurs="unbounded">
+                <alternate>
+                  <dataRef key="busoni.rend.size"/>
+                  <dataRef key="busoni.rend.indent"/>
+                  <dataRef key="busoni.rend.spacing"/>
+                  <dataRef key="busoni.rend.alignment"/>
+                  <dataRef key="busoni.rend.highlight"/>
+                  <dataRef key="busoni.rend.hyphen"/>
+                  <dataRef key="busoni.rend.after"/>
+                  <dataRef key="busoni.rend.quotes"/>
+                  <dataRef key="busoni.rend.del"/>
+                  <dataRef key="busoni.rend.layout"/>
+                  <dataRef key="busoni.rend.colour"/>
+                  <dataRef key="busoni.place.position"/>
+                  <dataRef key="busoni.place.addition"/>
+                </alternate>
+              </datatype>
+              <valList type="semi" mode="add">
+                <valItem ident="tiny">
+                  <gloss>Schriftgröße</gloss>
+                  <desc>sehr klein</desc>
+                </valItem>
+                <valItem ident="small">
+                  <gloss>Schriftgröße</gloss>
+                  <desc>klein</desc>
+                </valItem>
+                <valItem ident="normal">
+                  <gloss>Schriftgröße</gloss>
+                  <desc>normal</desc>
+                </valItem>
+                <valItem ident="large">
+                  <gloss>Schriftgröße</gloss>
+                  <desc>groß</desc>
+                </valItem>
+                <valItem ident="huge">
+                  <gloss>Schriftgröße</gloss>
+                  <desc>sehr groß</desc>
+                </valItem>
+                <valItem ident="scale(x,y)">
+                  <gloss>Schriftgröße</gloss>
+                  <desc>x: horizontaler Faktor; y: vertikaler Faktor (Fließkommazahlen durch Punkt trennen: 5.4,10.8</desc>
+                </valItem>
+                <valItem ident="italic">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>kursiv</desc>
+                </valItem>
+                <valItem ident="bold">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>fett</desc>
+                </valItem>
+                <valItem ident="underline">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>unterstrichen</desc>
+                </valItem>
+                <valItem ident="underline-2">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>doppelt unterstrichen (analog weiter steiberbar)</desc>
+                </valItem>
+                <valItem ident="underline-wave">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>unterkringelt</desc>
+                </valItem>
+                <valItem ident="underline-dashed">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>mit gestrichelter Linie unterstrichen</desc>
+                </valItem>
+                <valItem ident="underline-dotted">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>mit gepunkteter Linie unterstrichen</desc>
+                </valItem>
+                <valItem ident="underline-square-black-red">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>rechteckiger Kasten als Unterstreichung, Rand schwarz, Füllung rot (entsprechend weitere Kasten-Fälle)</desc>
+                </valItem>
+                <valItem ident="majuscule">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>GROSSBUCHSTABEN (der Text selbst wird in Normalschreibung codiert!)</desc>
+                </valItem>
+                <valItem ident="caps">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>Kapitälchen (der Text selbst wird in Normalschreibung codiert!)</desc>
+                </valItem>
+                <valItem ident="first-cap">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>irregulärer Beginn mit einem Großbuchstaben zwecks Hervorhebung (in Originalschreibung zu codieren)</desc>
+                </valItem>
+                <valItem ident="sup">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>hochgestellt</desc>
+                </valItem>
+                <valItem ident="sub">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>tiefgestellt</desc>
+                </valItem>
+                <valItem ident="spaced-out">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>g e s p e r r t</desc>
+                </valItem>
+                <valItem ident="antiqua">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>lateinische Schrift innerhalb von Fraktursatz (Drucke)</desc>
+                </valItem>
+                <valItem ident="fraktur">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>Fraktursatz (Drucke)</desc>
+                </valItem>
+                <valItem ident="latin">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>lateinische Schrift innerhalb von Kurrentschrift (Manuskripte)</desc>
+                </valItem>
+                <valItem ident="kurrent">
+                  <gloss>Hervorhebung</gloss>
+                  <desc>Kurrentschrift innerhalb von lateinischer Handschrift</desc>
+                </valItem>
+                <valItem ident="indent">
+                  <gloss>Einrückungen und Einzüge</gloss>
+                  <desc>eingerückter Text (nach rechts verschoben)</desc>
+                </valItem>
+                <valItem ident="indent-2">
+                  <gloss>Einrückungen und Einzüge</gloss>
+                  <desc>weiter nach rechts eingerückter Text als "indent" (analog weiter eingerückt durch indent-3 usw.)</desc>
+                </valItem>
+                <valItem ident="indent-neg">
+                  <gloss>Einrückungen und Einzüge</gloss>
+                  <desc>ausgerückter Text (nach links verschoben, analog dazu indent-2-neg usw.)</desc>
+                </valItem>
+                <valItem ident="indent-first">
+                  <gloss>Einrückungen und Einzüge</gloss>
+                  <desc>Erstzeileneinzug (am Absatzbeginn erste Zeile weiter rechts)</desc>
+                </valItem>
+                <valItem ident="indent-2-first">
+                  <gloss>Einrückungen und Einzüge</gloss>
+                  <desc>größerer Erstzeileneinzug (am Absatzbeginn erste Zeile noch weiter rechts, analog dazu indent-3-first u.s.w.)</desc>
+                </valItem>
+                <valItem ident="first-right">
+                  <gloss>Einrückungen und Einzüge</gloss>
+                  <desc>großer Erstzeileneinzug der ersten Zeile (quasi rechtsbündig)</desc>
+                </valItem>
+                <valItem ident="indent-first-neg">
+                  <gloss>Einrückungen und Einzüge</gloss>
+                  <desc>negativer Erstzeileneinzug (am Absatzbeginn erste Zeile weiter links)</desc>
+                </valItem>
+                <valItem ident="no-indent-first">
+                  <gloss>Einrückungen und Einzüge</gloss>
+                  <desc>kein Erstzeileneinzug (nur nötig, wenn ein übergeordneter Einzug nicht mehr gelten soll)</desc>
+                </valItem>
+                <valItem ident="space-above">
+                  <gloss>Abstände und horizontale Zwischenräume</gloss>
+                  <desc>zusätzlicher Abstand über dem Element</desc>
+                </valItem>
+                <valItem ident="space-below">
+                  <gloss>Abstände und horizontale Zwischenräume</gloss>
+                  <desc>zusätzlicher Abstand unter dem Element</desc>
+                </valItem>
+                <valItem ident="align(left)">
+                  <gloss>Ausrichtung</gloss>
+                  <desc>linksbündig</desc>
+                </valItem>
+                <valItem ident="align(center)">
+                  <gloss>Ausrichtung</gloss>
+                  <desc>zentriert</desc>
+                </valItem>
+                <valItem ident="align(right)">
+                  <gloss>Ausrichtung</gloss>
+                  <desc>rechtsbündig</desc>
+                </valItem>
+                <valItem ident="align(justify)">
+                  <gloss>Ausrichtung</gloss>
+                  <desc>Blocksatz</desc>
+                </valItem>
+                <valItem ident="rotate(-90)">
+                  <gloss>Ausrichtung</gloss>
+                  <desc>von unten nach oben</desc>
+                </valItem>
+                <valItem ident="rotate(90)">
+                  <gloss>Ausrichtung</gloss>
+                  <desc>von oben nach unten</desc>
+                </valItem>
+                <valItem ident="rotate 180)">
+                  <gloss>Ausrichtung</gloss>
+                  <desc>auf dem Kopf stehend</desc>
+                </valItem>
+                <valItem ident="rotate(-45)">
+                  <gloss>Ausrichtung</gloss>
+                  <desc>diagonal (von links unten nach rechts oben)</desc>
+                </valItem>
+                <valItem ident="rotate(45)">
+                  <gloss>Ausrichtung</gloss>
+                  <desc>diagonal (von links oben nach rechts unten)</desc>
+                </valItem>
+                <valItem ident="rotate(x)">
+                  <gloss>Ausrichtung</gloss>
+                  <desc>Rotationen in 45°-Schritten, positive im Uhrzeigersinn, negative gegen den Uhrzeigersinn</desc>
+                </valItem>
+                <valItem ident="sh">
+                  <gloss>Bindestrich</gloss>
+                  <desc>single hyphen, ausnahmsweise einfacher Bindestrich</desc>
+                </valItem>
+                <valItem ident="dh">
+                  <gloss>Bindestrich</gloss>
+                  <desc>double hyphen, ausnahmsweise doppelter Bindestrich</desc>
+                </valItem>
+                <valItem ident="lh">
+                  <gloss>Bindestrich</gloss>
+                  <desc>low hyphen, ausnahmsweise Unterstrich</desc>
+                </valItem>
+                <valItem ident="nh">
+                  <gloss>Bindestrich</gloss>
+                  <desc>no hyphen, ausnahmsweise gar kein Bindestrich</desc>
+                </valItem>
+                <valItem ident="after:-">
+                  <gloss>Zeichen am Zeilenanfang</gloss>
+                  <desc>wiederholter Bindestrich</desc>
+                </valItem>
+                <valItem ident="after:=">
+                  <gloss>Zeichen am Zeilenanfang</gloss>
+                  <desc>wiederholter Doppel-Bindestrich</desc>
+                </valItem>
+                <valItem ident="after:„">
+                  <gloss>Zeichen am Zeilenanfang</gloss>
+                  <desc>wiederholtes doppeltes Anführungszeichen unten</desc>
+                </valItem>
+                <valItem ident='after:"'>
+                  <gloss>Zeichen am Zeilenanfang</gloss>
+                  <desc>wiederholtes doppeltes Anführungszeichen oben</desc>
+                </valItem>
+                <valItem ident="after:(...)">
+                  <gloss>Zeichen am Zeilenanfang</gloss>
+                  <desc>beliebiges Sonderzeichen einfügen</desc>
+                </valItem>
+                <valItem ident="inline">
+                  <gloss>Platzierung</gloss>
+                  <desc>Absatz ohne Zeilenwechsel</desc>
+                </valItem>
+                <valItem ident="dq-uu-straight">
+                  <gloss>Anführungszeichen im Schreibmaschinen-Stil / Zollzeichen</gloss>
+                  <desc>doppelt, oben-oben, gerade</desc>
+                </valItem>
+                <valItem ident="dq-du">
+                  <gloss>deutsche Anführungszeichen</gloss>
+                  <desc>doppelt, unten-oben</desc>
+                </valItem>
+                <valItem ident="dq-uu">
+                  <gloss>englische Anführungszeichen</gloss>
+                  <desc>doppelt, oben-oben</desc>
+                </valItem>
+                <valItem ident="dq-guil">
+                  <gloss>französische Anführungszeichen</gloss>
+                  <desc>doppelt, Guillemets (Spitze nach außen)</desc>
+                </valItem>
+                <valItem ident="dq-chev">
+                  <gloss>umgekehrte französische Anführungszeichen</gloss>
+                  <desc>doppelt, Chevrons (Spitze nach innen)</desc>
+                </valItem>
+                <valItem ident="mq-Weill">
+                  <gloss>Kurt Weill Anführungszeichen</gloss>
+                  <desc>vorne doppelt unten, hinten einfach oben</desc>
+                </valItem>
+                <valItem ident="sq-du">
+                  <gloss>einfache Anführungszeichen</gloss>
+                  <desc>einfach, unten-oben</desc>
+                </valItem>
+                <valItem ident="sq-uu">
+                  <gloss>einfache Anführungszeichen</gloss>
+                  <desc>einfach, oben-oben</desc>
+                </valItem>
+                <valItem ident="dq-uu-oo">
+                  <gloss>nur öffnende Anführungszeichen</gloss>
+                  <desc>doppelt, oben-oben, nur vorne</desc>
+                </valItem>
+                <valItem ident="dq-uu-co">
+                  <gloss>nur schließende Anführungszeichen</gloss>
+                  <desc>doppelt, oben-oben, nur hinten</desc>
+                </valItem>
+                <valItem ident="strikethrough" mode="add">
+                  <gloss>Streichungen</gloss>
+                  <desc>durchgestrichen</desc>
+                </valItem>
+                <valItem ident="strikethrough-part" mode="add">
+                  <gloss>Streichungen</gloss>
+                  <desc>Buchstabenteil durchgestrichen (z.B. Umwandlung von m zu n)</desc>
+                </valItem>
+                <valItem ident="transformed" mode="add">
+                  <gloss>Streichungen</gloss>
+                  <desc>durch Teilergänzung veränderter Buchstabe</desc>
+                </valItem>
+                <valItem ident="erasure" mode="add">
+                  <gloss>Streichungen</gloss>
+                  <desc>Rasur (weggeschabter/-gekratzter Text)</desc>
+                </valItem>
+                <valItem ident="overwritten" mode="add">
+                  <gloss>Streichungen</gloss>
+                  <desc>durch ein anderes Wort überschrieben</desc>
+                </valItem>
+                <valItem ident="none" mode="add">
+                  <gloss>Streichungen</gloss>
+                  <desc>keine Kennzeichnung (z.B. bei Ersetzungen, bei denen eine Streichung vergessen wurde)</desc>
+                </valItem>
+                <valItem ident="round" mode="add">
+                  <gloss>Layout</gloss>
+                  <desc>rund</desc>
+                </valItem>
+                <valItem ident="square" mode="add">
+                  <gloss>Layout</gloss>
+                  <desc>quadratisch</desc>
+                </valItem>
+                <valItem ident="border" mode="add">
+                  <gloss>Layout</gloss>
+                  <desc>umrahmt</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </classSpec>
+        
+        <!-- @place -->
+        <classSpec ident="att.placement" type="atts" mode="change">
+          <attList>
+            <attDef ident="place" mode="replace">
+              <datatype maxOccurs="unbounded">
+                <alternate>
+                  <dataRef key="busoni.place.position"/>
+                  <dataRef key="busoni.place.addition"/>
+                </alternate>
+              </datatype>
+              <valList type="semi" mode="change">
+                <valItem ident="top-left">
+                  <desc>am oberen Seitenrand links</desc>
+                </valItem>
+                <valItem ident="top">
+                  <desc>oben</desc>
+                </valItem>
+                <valItem ident="bottom">
+                  <desc>unten</desc>
+                </valItem>
+                <valItem ident="top-center">
+                  <desc>am oberen Seitenrand mittig</desc>
+                </valItem>
+                <valItem ident="top-right">
+                  <desc>am oberen Seitenrand rechts</desc>
+                </valItem>
+                <valItem ident="bottom-left">
+                  <desc>am unteren Seitenrand links</desc>
+                </valItem>
+                <valItem ident="bottom-center">
+                  <desc>am unteren Seitenrand mittig</desc>
+                </valItem>
+                <valItem ident="bottom-right">
+                  <desc>am unteren Seitenrand rechts</desc>
+                </valItem>
+                <valItem ident="margin-left">
+                  <desc>am linken Seitenrand</desc>
+                </valItem>
+                <valItem ident="margin-right">
+                  <desc>am rechten Seitenrand</desc>
+                </valItem>
+                <valItem ident="left">
+                  <desc>an Ort und Stelle der Codierung links</desc>
+                </valItem>
+                <valItem ident="left-of">
+                  <desc>links von etwas (nicht ganz links)</desc>
+                </valItem>
+                <valItem ident="center">
+                  <desc>an Ort und Stelle der Codierung mittig</desc>
+                </valItem>
+                <valItem ident="right">
+                  <desc>an Ort und Stelle der Codierung rechts</desc>
+                </valItem>
+                <valItem ident="right-of">
+                  <desc>rechts von etwas (nicht ganz rechts)</desc>
+                </valItem>
+                <valItem ident="inline">
+                  <desc>in der aktuellen Zeile</desc>
+                </valItem>
+                <valItem ident="above"><!--auf Ersetzungen limitieren?-->
+                  <desc>oberhalb von (bei Ersetzungen)</desc>
+                </valItem>
+                <valItem ident="below"><!--auf Ersetzungen limitieren?-->
+                  <desc>unterhalb von (bei Ersetzungen)</desc>
+                </valItem>
+                <valItem ident="across"><!--auf Ersetzungen limitieren?-->
+                  <desc>darüber geschrieben (bei Ersetzungen)</desc>
+                </valItem>
+                <valItem ident="remainder"><!--auf Ersetzungen limitieren?-->
+                  <desc>verbleibender Restbuchstabe (bei Ersetzungen nach einer Teilstreichung)</desc>
+                </valItem>
+                <valItem ident="transformed"><!--auf Ersetzungen limitieren?-->
+                  <desc>durch Teilergänzung veränderter Buchstabe (bei Ersetzungen nach einer Teilstreichung)</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <!-- @resp -> #... -->
+        <classSpec ident="att.global.responsibility" type="atts" mode="change">
+          <attList>
+            <attDef ident="resp" mode="change">
+              <datatype>
+                <dataRef key="busoni.hash.all"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        
+        <!-- @target -> #... oder http... -->
+        <classSpec ident="att.pointing" type="atts" mode="change">
+          <attList>
+            <attDef ident="target" mode="change">
+              <datatype>
+                <dataRef key="busoni.hash.target"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <!-- @xml:lang -> zwei Buchstaben -->
+<!-- KLAPPT?-->
+        <classSpec type="atts" ident="att.global" mode="change">
+          <attList>
+            <attDef ident="xml:lang" mode="change">
+              <datatype>
+                <dataRef key="busoni.xmllang.all"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        
+        <!-- @when-iso -> ISO 8601 (bislang sehr spärlich implementiert -->
+        <classSpec type="atts" ident="att.datable.iso" mode="change">
+          <attList>
+            <attDef ident="when-iso" mode="change">
+              <datatype>
+                <dataRef key="busoni.wheniso.all"/>
+              </datatype>
+            </attDef>
+            <attDef ident="from-iso" mode="change">
+              <datatype>
+                <dataRef key="busoni.wheniso.all"/>
+              </datatype>
+            </attDef>
+            <attDef ident="to-iso" mode="change">
+              <datatype>
+                <dataRef key="busoni.wheniso.all"/>
+              </datatype>
+            </attDef>
+            <attDef ident="notBefore-iso" mode="change">
+              <datatype>
+                <dataRef key="busoni.wheniso.all"/>
+              </datatype>
+            </attDef>
+            <attDef ident="notAfter-iso" mode="change">
+              <datatype>
+                <dataRef key="busoni.wheniso.all"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        
+        
+
+<!--=========================-->
+<!--==== 1.3.2 Metadaten ====-->
+<!--=========================-->
+
+        <!-- Zusammenfassung: <summary> -->
+        <elementSpec ident="summary" mode="change">
+          <content>
+            <alternate maxOccurs="unbounded">
+              <elementRef key="persName"/>
+              <elementRef key="title"/>
+              <elementRef key="placeName"/>
+              <elementRef key="orgName"/>
+              <elementRef key="rs"/>
+              <elementRef key="date"/>
+              <elementRef key="q"/>
+              <elementRef key="mentioned"/>
+              <elementRef key="soCalled"/>
+              <elementRef key="ref"/>
+              <elementRef key="foreign"/>
+              <textNode/>
+            </alternate>
+          </content>
+        </elementSpec>
+
+        <!-- Incipit: <incipit> -->
+        <elementSpec ident="incipit" mode="change">
+          <content>
+            <alternate maxOccurs="unbounded">
+              <elementRef key="persName"/>
+              <elementRef key="title"/>
+              <elementRef key="placeName"/>
+              <elementRef key="orgName"/>
+              <elementRef key="rs"/>
+              <elementRef key="date"/>
+              <elementRef key="q"/>
+              <elementRef key="mentioned"/>
+              <elementRef key="soCalled"/>
+              <elementRef key="ref"/>
+              <elementRef key="foreign"/>
+              <elementRef key="add"/>
+              <elementRef key="del"/>
+              <elementRef key="supplied"/>
+              <elementRef key="choice"/>
+              <elementRef key="orig"/>
+              <elementRef key="reg"/>
+              <elementRef key="sic"/>
+              <elementRef key="corr"/>
+              <elementRef key="pc"/>
+              <elementRef key="hi"/>
+              <elementRef key="seg"/>
+              <elementRef key="subst"/>
+              <textNode/>
+            </alternate>
+          </content>
+        </elementSpec>
+
+        <!-- Dokumentenstand: <revisionDesc> -->
+        <elementSpec ident="revisionDesc" mode="change">
+          <attList>
+            <attDef ident="status" mode="replace" usage="req">
+              <valList type="closed" mode="add">
+                <valItem ident="todo">
+                  <desc>Ausgangsstatus (Datei per Skript angelegt). Bei Übernahme eines Dokuments setzt der Bearbeiter auf 'unfinished'.</desc>
+                </valItem>
+                <valItem ident="unfinished">
+                  <desc>in der Erfassungs-/Codierungsphase</desc>
+                </valItem>
+                <valItem ident="proposed">
+                  <desc>Auszeichnungen codiert, zur Korrekturlesung freigegeben</desc>
+                </valItem>
+                <valItem ident="candidate">
+                  <desc>Auszeichnungen überprüft, korrekturgelesen</desc>
+                </valItem>
+                <valItem ident="approved">
+                  <desc>Bearbeitung abgeschlossen (Ergänzungen i.d.R. nur noch im Kommentarbereich). Der Statuswechsel zu 'approved' ist zugleich das Publikationsdatum.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+        
+        
+        
+        
+        
+<!--========================-->
+<!--==== 1.3.4 Haupttext====-->
+<!--========================-->
+        
+    <!--========================-->
+    <!--== 1.3.4.1 Grundgerüst==-->
+    <!--========================-->
+        
+        <!-- Textsorten <text> -->
+        <elementSpec ident="text" mode="change">
+          <attList>
+            <attDef ident="type" usage="req" mode="replace">
+              <valList type="closed" mode="add">
+                <valItem ident="letter" mode="add">
+                  <desc>Brief</desc>
+                </valItem>
+                <valItem ident="postcard" mode="add">
+                  <desc>Postkarte</desc>
+                </valItem>
+                <valItem ident="pic_card" mode="add">
+                  <gloss>picture postcard</gloss>
+                  <desc>Ansichtskarte</desc>
+                </valItem>
+                <valItem ident="cor_card" mode="add">
+                  <gloss>correspondence card</gloss>
+                  <desc>Briefkarte</desc>
+                </valItem>
+                <valItem ident="telegram" mode="add">
+                  <desc>Telegramm</desc>
+                </valItem>
+                <valItem ident="book" mode="add">
+                  <desc>Buch</desc>
+                </valItem>
+                <valItem ident="broschure" mode="add">
+                  <desc>Broschüre/Prospekt</desc>
+                </valItem>
+                <valItem ident="cutting" mode="add">
+                  <desc>Zeitungsausschnitt</desc>
+                </valItem>
+                <valItem ident="attachment" mode="add">
+                  <desc>Korrespondenz-Anhänge; Art des Anhangs wird über das Attribut "subtype" genauer definiert.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+            <attDef ident="subtype" usage="rec" mode="replace">
+              <valList type="closed" mode="add">
+                <valItem ident="letter" mode="add">
+                  <desc>Brief</desc>
+                </valItem>
+                <valItem ident="postcard" mode="add">
+                  <desc>Postkarte</desc>
+                </valItem>
+                <valItem ident="pic_card" mode="add">
+                  <gloss>picture postcard</gloss>
+                  <desc>Ansichtskarte</desc>
+                </valItem>
+                <valItem ident="cor_card" mode="add">
+                  <gloss>correspondence card</gloss>
+                  <desc>Briefkarte</desc>
+                </valItem>
+                <valItem ident="telegram" mode="add">
+                  <desc>Telegramm</desc>
+                </valItem>
+                <valItem ident="book" mode="add">
+                  <desc>Buch</desc>
+                </valItem>
+                <valItem ident="broschure" mode="add">
+                  <desc>Broschüre/Prospekt</desc>
+                </valItem>
+                <valItem ident="cutting" mode="add">
+                  <desc>Zeitungsausschnitt</desc>
+                </valItem>
+                <valItem ident="attachment" mode="add">
+                  <desc>Korrespondenz-Anhänge; Art des Anhangs wird über das Attribut "subtype" genauer definiert.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+          <constraintSpec ident="textAttachment" scheme="schematron">
+            <constraint>
+              <sch:report test="matches(@type,'attachment') and not(@subtype)">
+                Die Art des Anhangs muss über das Attribut 'subtype' genauer definiert werden.
+              </sch:report>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+        
+        
+        
+        
+        
+<!--=======================================-->
+<!--== 1.3.4.2 Elemente für alle Vorlagen==-->
+<!--=======================================-->
+        
+    <!--==============-->
+    <!--= Gliederung =-->
+    <!--==============-->
+        
+        <!-- Zeilenwechsel <lb/> -->
+<!--todo: Eventuell Restriktion für leeres Element?-->
+<!--todo: @rend richtig spezifizieren -->
+        <elementSpec ident="lb" mode="change">
+          <attList>
+            <attDef ident="break" usage="rec" mode="replace">
+              <valList type="closed" mode="add">
+                <valItem ident="no"/>                  
+              </valList>
+            </attDef>
+            <attDef ident="rend" mode="replace">
+              <valList type="semi" mode="add">
+                <valItem ident="after:-">
+                  <desc>wiederholter Bindestrich am Zeilenbeginn; benötigt auch das Attribut break="no"</desc>
+                </valItem>
+                <valItem ident="after:=">
+                  <desc>wiederholter Doppel-Bindestrich am Zeilenbeginn; benötigt auch das Attribut break="no"</desc>
+                </valItem>
+                <valItem ident="after:„">
+                  <desc>wiederholtes doppeltes Anführungszeichen unten; benötigt auch das Attribut break="no"</desc>
+                </valItem>
+                <valItem ident="after:&quot;">
+                  <desc>wiederholtes doppeltes Anführungszeichen oben; benötigt auch das Attribut break="no"</desc>
+                </valItem>
+                <valItem ident="after:">
+                  <desc>sonstige besondere Zeichen am Zeilenbeginn; jeweiliges Zeichen nach "after:" einfügen</desc>
+                </valItem>
+                <valItem ident="sh">
+                  <gloss>single hyphen</gloss>
+                  <desc>ausnahmsweise einfacher Bindestrich</desc>
+                </valItem>
+                <valItem ident="dh">
+                  <gloss>double hyphen</gloss>
+                  <desc>ausnahmsweise doppelter Bindestrich</desc>
+                </valItem>
+                <valItem ident="lh">
+                  <gloss>low hyphen</gloss>
+                  <desc>ausnahmsweise Unterstrich</desc>
+                </valItem>
+                <valItem ident="nh">
+                  <gloss>no hyphen</gloss>
+                  <desc>ausnahmsweise gar kein Bindestrich</desc>
+                </valItem>
+              </valList>
+              <datatype maxOccurs="unbounded">
+                <alternate>
+                  <dataRef key="busoni.rend.after"/>
+                  <dataRef key="busoni.rend.hyphen"/>
+                </alternate>
+              </datatype>
+            </attDef>
+          </attList>
+        </elementSpec>
+        
+        <!-- punctuation character <pc> -->
+        <elementSpec ident="pc" mode="change">
+          <content>
+            <textNode/>
+          </content>
+        </elementSpec>
+        
+        <!-- Seitenwechsel <pb> -->
+        <elementSpec ident="pb" mode="change">
+          <attList>
+            <attDef ident="n" mode="change" usage="rec">
+              <datatype>
+                <dataRef key="teidata.count"/>
+              </datatype>
+            </attDef>
+            <attDef ident="break" mode="replace" usage="rec">
+              <valList type="closed" mode="change">
+                <valItem ident="no" mode="add"/>
+              </valList>
+            </attDef>
+            <attDef ident="sameAs" mode="replace" usage="rec">
+              <datatype>
+                <dataRef key="busoni.hash.all"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </elementSpec> 
+        
+        <!-- Spaltenwechsel <cb> -->
+        <elementSpec ident="cb" mode="change">
+          <attList>
+            <attDef ident="type" mode="replace" usage="req">
+              <valList type="closed" mode="add">
+                <valItem ident="left" mode="add"/>
+                <valItem ident="right" mode="add"/>
+                <valItem ident="postcard" mode="add"/>
+                <valItem ident="margin-left" mode="add"/>
+                <valItem ident="margin-right" mode="add"/>
+                <valItem ident="margin" mode="add"/> 
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec> 
+        
+        <!-- Absätze <p> -->
+        <elementSpec ident="p" mode="change">
+          <attList>
+            <attDef ident="rend" mode="change">
+              <valList type="semi" mode="add">
+                <valItem ident="indent" mode="add">
+                  <desc>eingerückter Text (nach rechts verschoben)</desc>
+                </valItem>
+                <valItem ident="indent-2" mode="add">
+                  <desc>noch weiter nach rechts eingerückter Text (usw: indent-3, indent-4)</desc>
+                </valItem>
+                <valItem ident="indent-neg" mode="add">
+                  <desc>ausgerückter Text (nach links verschoben, usw.: indent-2-neg)</desc>
+                </valItem>
+                <valItem ident="indent-first" mode="add">
+                  <desc>Erstzeileneinzug (am Absatzbeginn erste Zeile weiter rechts)</desc>
+                </valItem>
+                <valItem ident="indent-2-first" mode="add">
+                  <desc>größerer Erstzeileneinzug (am Absatzbeginn erste Zeile noch weiter rechts, usw.: indent-3-first, …)</desc>
+                </valItem>
+                <valItem ident="first-right" mode="add">
+                  <desc>großer Erstzeileneinzug der ersten Zeile (quasi rechtsbündig)</desc>
+                </valItem>
+                <valItem ident="indent-first-neg" mode="add">
+                  <desc>negativer Erstzeileneinzug (am Absatzbeginn erste Zeile weiter links)</desc>
+                </valItem>
+                <valItem ident="no-indent-first" mode="add">
+                  <desc>kein Erstzeileneinzug (nur nötig, wenn ein übergeordneter Einzug nicht mehr gelten soll)</desc>
+                </valItem>
+                <valItem ident="space-above" mode="add">
+                  <desc>zusätzlicher Abstand über dem Element</desc>
+                </valItem>
+                <valItem ident="space-below" mode="add">
+                  <desc>zusätzlicher Abstand unter dem Element</desc>
+                </valItem>
+                <valItem ident="align(left)" mode="add">
+                  <desc></desc>
+                </valItem>
+                <valItem ident="align(center)" mode="add">
+                  <desc></desc>
+                </valItem>
+                <valItem ident="align(right)" mode="add">
+                  <desc></desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+        
+        <!-- Weitere Unterteilungen <milestone> -->
+<!--[noch zu spezifizieren]-->       
+        
+        <!-- Aufzählungen <list> -->      
+        <elementSpec ident="list" mode="change">
+          <content>
+            <alternate minOccurs="1" maxOccurs="unbounded">
+              <elementRef key="head"/>
+              <elementRef key="item"/>
+              <elementRef key="pb"/>
+            </alternate>
+          </content>
+          <attList>
+            <attDef ident="style" usage="opt" mode="replace">
+              <valList type="semi" mode="replace">
+                <valItem ident="decimal" mode="add">
+                  <desc>arabische Zahlen mit folgendem Punkt: 1. 2. 3. usw.</desc>
+                </valItem>
+                <valItem ident="roman" mode="add">
+                  <desc>römische Zahlen mit folgendem Punkt: I. II. III. usw.</desc>
+                </valItem>
+                <valItem ident="lower-roman" mode="add">
+                  <desc>römische Zahlen (Kleinbuchstaben): i. ii. iii. usw.</desc>
+                </valItem>
+                <valItem ident="alpha" mode="add">
+                  <desc>Großbuchstaben: A. B. C. usw.</desc>
+                </valItem>
+                <valItem ident="lower-alpha" mode="add">
+                  <desc>Kleinbuchstaben: a. b. c. usw.</desc>
+                </valItem>
+                <valItem ident="hyphen" mode="add">
+                  <desc>Spiegelstriche</desc>
+                </valItem>
+              </valList>
+              <datatype>
+                <dataRef key="teidata.text"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </elementSpec>
+        
+        <!-- Tabellen <table> -->
+        <elementSpec ident="table" mode="change">
+          <content>
+            <alternate minOccurs="1" maxOccurs="unbounded">
+              <elementRef key="head"/>
+              <elementRef key="row"/>              
+            </alternate>
+          </content>
+        </elementSpec>
+        
+        
+    <!--=====================================================================================-->
+    <!--= Auszeichnung von Personen, Werken, Orten und Organisationen/institutionen/Gruppen =-->
+    <!--=====================================================================================-->
+        
+        <elementSpec ident="persName" mode="change">
+          <attList>
+            <attDef ident="key" mode="change">
+              <datatype>
+                <dataRef key="busoni.key.persName"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </elementSpec>               
+        <elementSpec ident="title" mode="change">
+          <attList>
+            <attDef ident="key" mode="change">
+              <datatype>
+                <dataRef key="busoni.key.title"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </elementSpec>       
+        <elementSpec ident="placeName" mode="change">
+          <attList>
+            <attDef ident="key" mode="change">
+              <datatype>
+                <dataRef key="busoni.key.placeName"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </elementSpec>      
+        <elementSpec ident="orgName" mode="change">
+          <attList>
+            <attDef ident="key" mode="change">
+              <datatype>
+                <dataRef key="busoni.key.orgName"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </elementSpec>       
+        <elementSpec ident="rs" mode="change"><!--2 Schlüssel ohne Leerzeichen möglich!-->
+          <attList>
+            <attDef ident="key" mode="change">
+              <datatype>
+                <dataRef key="busoni.key.rs"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </elementSpec>
+        
+        
+        <!-- Verweise nach außen: <ref> -> @subtype -->
+        <elementSpec ident="ref" mode="change">
+          <attList>
+            <attDef ident="subtype" mode="change">
+              <valList type="closed" mode="replace">
+                <valItem ident="kalliope">
+                  <desc>Kalliope Verbundkatalog</desc>
+                </valItem>
+                <valItem ident="anno">
+                  <desc>Austrion Newspapers Online (ÖNB)</desc>
+                </valItem>
+                <valItem ident="asc-l">
+                  <desc>Briefe im Arnold-Schönberg-Center</desc>
+                </valItem>
+                <valItem ident="asc-w">
+                  <desc>Schriften im Arnold-Schönberg-Center</desc>
+                </valItem>
+                <valItem ident="mdz">
+                  <desc>Münchner Digitalisierungs-Zentrum</desc>
+                </valItem>
+                <valItem ident="gallica">
+                  <desc>Gallica (BnF Paris)</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+        
+        <!-- Fremdsprachige Texte: <foreign> -> xml:lang -->
+        <elementSpec ident="foreign" mode="change">
+          <attList>
+            <attDef ident="xml:lang" mode="change">
+              <valList type="semi" mode="replace">
+                <valItem ident="fr">
+                  <gloss>französisch</gloss>
+                </valItem>
+                <valItem ident="de">
+                  <gloss>deutsch</gloss>
+                </valItem>
+                <valItem ident="la">
+                  <gloss>latein</gloss>
+                </valItem>
+                <valItem ident="it">
+                  <gloss>italienisch</gloss>
+                </valItem>
+                <valItem ident="es">
+                  <gloss>spanisch</gloss>
+                </valItem>
+                <valItem ident="en">
+                  <gloss>englisch</gloss>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+        
+        
+    <!--=====================-->
+    <!--== Überarbeitungen ==-->
+    <!--=====================-->
+        
+        <!-- Streichungen: <del> -->
+        <elementSpec ident="del" mode="change">
+          <attList>
+            <attDef ident="rend" usage="req" mode="change">
+              <gloss>rendition</gloss>
+              <desc>Klassifiziert die Art der Streichung.</desc>
+              <valList mode="change" type="semi">
+                <valItem ident="strikethrough" mode="add">
+                  <desc>durchgestrichen</desc>
+                </valItem>
+                <valItem ident="strikethrough-part" mode="add">
+                  <desc>Buchstabenteil durchgestrichen (z.B. Umwandlung von m zu n)</desc>
+                </valItem>
+                <valItem ident="transformed" mode="add">
+                  <desc>durch Teilergänzung veränderter Buchstabe</desc>
+                </valItem>
+                <valItem ident="erasure" mode="add">
+                  <desc>Rasur (weggeschabter/-gekratzter Text)</desc>
+                </valItem>
+                <valItem ident="overwritten" mode="add">
+                  <desc>durch ein anderes Wort überschrieben</desc>
+                </valItem>
+                <valItem ident="none" mode="add">
+                  <desc>keine Kennzeichnung (z.B. bei Ersetzungen, bei denen eine Streichung vergessen wurde)</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+        
+        <!-- Einfügungen: <add> -->
+<!--Schaper-Baustelle: Werte für @add-->        
+        <elementSpec ident="add" mode="change">
+          <attList>
+            <attDef ident="place" usage="rec" mode="replace">
+              <desc>Klassifiziert die Art der Hinzufügung.</desc>
+              <valList mode="change" type="semi">
+                <valItem ident="above" mode="add">
+                  <desc>oberhalb der Zeile</desc>
+                </valItem>
+                <valItem ident="across" mode="add">
+                  <desc>Überschreibung (entsprechend bei Streichung: "del rend="overwritten""..."/del")</desc>
+                </valItem>
+                <valItem ident="below" mode="add">
+                  <desc>unterhalb der Zeile</desc>
+                </valItem>
+                <valItem ident="remainder" mode="add">
+                  <desc>verbleibender Restbuchstabe (nach einer Teilstreichung)</desc>
+                </valItem>
+                <valItem ident="transformed" mode="add">
+                  <desc>durch Teilergänzung veränderter Buchstabe</desc>
+                </valItem>
+                <valItem ident="inline" mode="add">
+                  <desc>zwischen den Worten oder in der Zeile als Sofortkorrektur nach einer Streichung (rend nicht zwingend erforderlich)</desc>
+                </valItem>
+              </valList>
+              <datatype maxOccurs="unbounded">
+                <alternate>
+                  <dataRef key="busoni.place.addition"/>
+                  <dataRef key="busoni.place.position"/>
+                </alternate>
+              </datatype>
+            </attDef>
+          </attList>
+        </elementSpec>       
+        
+        <!-- Ersetzungen: <subst> -->
+        <elementSpec ident="subst" mode="change">
+          <content>
+            <alternate maxOccurs="unbounded">
+              <elementRef key="del" minOccurs="1" maxOccurs="1"/>
+              <elementRef key="add" minOccurs="1" maxOccurs="1"/>
+              <elementRef key="lb" maxOccurs="unbounded"/>
+            </alternate>
+          </content>
+        </elementSpec>
+        
+        <!-- Transkription unsicher: <unclear>-->
+<!--Frage: @reason obligatorisch oder fakultativ?-->       
+<!--Frage: @reason Werte systematisieren? Doppeln sich mit <del>-->
+        <elementSpec ident="unclear" mode="change">
+          <attList>
+            <attDef ident="cert" usage="req" mode="replace">
+              <desc>Obligatorische Angabe zur Wahrscheinlichkeit der jeweiligen Lesart.</desc>
+              <valList type="closed" mode="add">
+                <valItem ident="high" mode="add">
+                  <desc>die wahrscheinliche Lesart (nur eine ist möglich)</desc>
+                </valItem>
+                <valItem ident="medium" mode="add">
+                  <desc>eine von mind. zwei gleich wahrscheinlichen Lesarten</desc>
+                </valItem>
+                <valItem ident="low" mode="add">
+                  <desc>eine unwahrscheinliche Lesart</desc>
+                </valItem>
+                <valItem ident="unknown" mode="add">
+                  <desc>Einschätzung der Wahrscheinlichkeit nicht möglich</desc>
+                </valItem>
+              </valList>
+            </attDef>
+            <attDef ident="reason" usage="rec" mode="replace">
+              <desc>Fakultative Angabe zum Grund der Unsicherheit.</desc>
+              <valList type="closed" mode="add">
+                <valItem ident="illegible" mode="add">
+                  <desc>unleserlich (Schrift ansonsten unbeeinträchtigt, aber nicht zweifelsfrei entzifferbar)</desc>
+                </valItem>
+                <valItem ident="overwritten" mode="add">
+                  <desc>überschrieben</desc>
+                </valItem>
+                <valItem ident="strikethrough" mode="add">
+                  <desc>durchgestrichen</desc>
+                </valItem>
+                <valItem ident="erasure" mode="add">
+                  <desc>Rasur</desc>
+                </valItem>
+                <valItem ident="paper-missing" mode="add">
+                  <desc>Papier fehlt</desc>
+                </valItem>
+                <valItem ident="stamp-missing" mode="add">
+                  <desc>Briefmarke fehlt</desc>
+                </valItem>
+                <valItem ident="beyond-paper" mode="add">
+                  <desc>[i. d. R. Stempel] jenseits des Papierbereichs</desc>
+                </valItem>
+                <valItem ident="faded" mode="add">
+                  <desc>verblasst</desc>
+                </valItem>
+                <valItem ident="low-ink" mode="add">
+                  <desc>wenig Tinte</desc>
+                </valItem>
+                <valItem ident="ink-blot" mode="add">
+                  <desc>Tintenklecks</desc>
+                </valItem>
+                <valItem ident="hole" mode="add">
+                  <desc>Loch</desc>
+                </valItem>
+                <valItem ident="stain" mode="add">
+                  <desc>Fleck</desc>
+                </valItem>
+                <valItem ident="seal" mode="add">
+                  <desc>Siegel</desc>
+                </valItem>
+                <valItem ident="paste-over" mode="add">
+                  <desc>überklebt</desc>
+                </valItem>
+                <valItem ident="covered" mode="add">
+                  <desc>verdeckt</desc>
+                </valItem>
+                <valItem ident="damage" mode="add">
+                  <desc>auf andere Weise beschädigt</desc>
+                </valItem>
+                <valItem ident="incomplete" mode="add">
+                  <desc>auf andere Weise unvollständig</desc>
+                </valItem>
+                <valItem ident="faded" mode="add">
+                  <desc>verblasst</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+        
+        <!-- Transkription unmöglich: <gap> -->   
+        <elementSpec ident="gap" mode="change">
+          <desc>Umfasst nicht entzifferbare Stellen. Angaben zur Ausdehnung und zum Grund der Transkriptionslücke sind obligatorisch.</desc>
+          <attList>
+            <attDef ident="extent" usage="rec" mode="replace">
+              <desc>exakte Ausdehnung (numerische Angabe, erfordert "unit")</desc>
+              <valList type="semi" mode="change">
+                <valItem ident="unknown" mode="add">
+                  <desc>unbekannte Ausdehnung</desc>
+                </valItem>
+              </valList>
+              <datatype>
+                <dataRef key="teidata.count"/>
+              </datatype>
+            </attDef>
+            <attDef ident="atLeast" usage="rec" mode="replace">
+              <desc>Ausdehnung mindestens (numerische Angabe, erfordert "unit")</desc>
+              <datatype>
+                <dataRef key="teidata.count"/>
+              </datatype>
+            </attDef>
+            <attDef ident="atMost" usage="rec" mode="replace">
+              <desc>Ausdehnung höchstens (numerische Angabe, erfordert "unit")</desc>
+              <datatype>
+                <dataRef key="teidata.count"/>
+              </datatype>
+            </attDef>
+            <attDef ident="unit" usage="rec" mode="replace">
+              <desc>erforderlich, wenn eine numerische Angabe zur Ausdehnung gegeben wird</desc>
+              <valList type="closed" mode="replace">
+                <valItem ident="char">
+                  <desc>Zeichen</desc>
+                </valItem>
+                <valItem ident="word">
+                  <desc>Worte</desc>
+                </valItem>
+                <valItem ident="line">
+                  <desc>Zeilen</desc>
+                </valItem>
+                <valItem ident="page">
+                  <desc>Seiten</desc>
+                </valItem>
+              </valList>
+            </attDef>
+            <attDef ident="reason" usage="req" mode="replace">
+              <desc>Obligatorische Angabe zum Grund der Unsicherheit.</desc>
+              <valList type="semi" mode="add">
+                <valItem ident="illegible" mode="change">
+                  <desc>unleserlich (Schrift ansonsten unbeeinträchtigt, aber nicht zweifelsfrei entzifferbar)</desc>
+                </valItem>
+                <valItem ident="overwritten" mode="add">
+                  <desc>überschrieben</desc>
+                </valItem>
+                <valItem ident="strikethrough" mode="add">
+                  <desc>durchgestrichen</desc>
+                </valItem>
+                <valItem ident="erasure" mode="add">
+                  <desc>Rasur</desc>
+                </valItem>
+                <valItem ident="paper-missing" mode="add">
+                  <desc>Papier fehlt</desc>
+                </valItem>
+                <valItem ident="stamp-missing" mode="add">
+                  <desc>Briefmarke fehlt</desc>
+                </valItem>
+                <valItem ident="beyond-paper" mode="add">
+                  <desc>[i. d. R. Stempel] jenseits des Papierbereichs</desc>
+                </valItem>
+                <valItem ident="faded" mode="add">
+                  <desc>verblasst</desc>
+                </valItem>
+                <valItem ident="low-ink" mode="add">
+                  <desc>wenig Tinte</desc>
+                </valItem>
+                <valItem ident="ink-blot" mode="add">
+                  <desc>Tintenklecks</desc>
+                </valItem>
+                <valItem ident="hole" mode="add">
+                  <desc>Loch</desc>
+                </valItem>
+                <valItem ident="stain" mode="add">
+                  <desc>Fleck</desc>
+                </valItem>
+                <valItem ident="seal" mode="add">
+                  <desc>Siegel</desc>
+                </valItem>
+                <valItem ident="paste-over" mode="add">
+                  <desc>überklebt</desc>
+                </valItem>
+                <valItem ident="covered" mode="add">
+                  <desc>verdeckt</desc>
+                </valItem>
+                <valItem ident="damage" mode="add">
+                  <desc>auf andere Weise beschädigt</desc>
+                </valItem>
+                <valItem ident="incomplete" mode="add">
+                  <desc>auf andere Weise unvollständig</desc>
+                </valItem>
+              </valList>
+              <datatype>
+                <dataRef key="busoni.reason.gap"/>
+              </datatype>
+            </attDef>
+          </attList>
+          <constraintSpec ident="gapExtent" scheme="schematron">
+            <constraint>
+              <sch:assert test="@extent or @atLeast or @atMost">
+                Die Ausdehnung muss über eines der Attribute 'extent', 'atLeast' oder 'atMost' angegeben werden.
+              </sch:assert>
+            </constraint>
+          </constraintSpec>
+          <constraintSpec ident="numericExtent" scheme="schematron">
+            <constraint>
+              <sch:report test="(matches(@extent, '\d+') and not(@unit)) or (matches(@atLeast, '\d+') and not (@unit)) or (matches (@atMost, '\d+') and not (@unit))">
+                Die Ausdehnung muss über das Attribut 'unit' näher spezifiziert werden.
+              </sch:report>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+        
+        <!-- Ergänzungen: <supplied> -->
+        <elementSpec ident="supplied" mode="change">
+          <attList>
+            <attDef ident="reason" usage="req" mode="replace">
+              <desc>Obligatorische Angabe zum Grund der Unsicherheit.</desc>
+              <valList type="semi" mode="add">
+                <valItem ident="illegible" mode="change">
+                  <desc>unleserlich (Schrift ansonsten unbeeinträchtigt, aber nicht zweifelsfrei entzifferbar)</desc>
+                </valItem>
+                <valItem ident="overwritten" mode="add">
+                  <desc>überschrieben</desc>
+                </valItem>
+                <valItem ident="strikethrough" mode="add">
+                  <desc>durchgestrichen</desc>
+                </valItem>
+                <valItem ident="erasure" mode="add">
+                  <desc>Rasur</desc>
+                </valItem>
+                <valItem ident="paper-missing" mode="add">
+                  <desc>Papier fehlt</desc>
+                </valItem>
+                <valItem ident="stamp-missing" mode="add">
+                  <desc>Briefmarke fehlt</desc>
+                </valItem>
+                <valItem ident="beyond-paper" mode="add">
+                  <desc>[i. d. R. Stempel] jenseits des Papierbereichs</desc>
+                </valItem>
+                <valItem ident="faded" mode="add">
+                  <desc>verblasst</desc>
+                </valItem>
+                <valItem ident="low-ink" mode="add">
+                  <desc>wenig Tinte</desc>
+                </valItem>
+                <valItem ident="ink-blot" mode="add">
+                  <desc>Tintenklecks</desc>
+                </valItem>
+                <valItem ident="hole" mode="add">
+                  <desc>Loch</desc>
+                </valItem>
+                <valItem ident="stain" mode="add">
+                  <desc>Fleck</desc>
+                </valItem>
+                <valItem ident="seal" mode="add">
+                  <desc>Siegel</desc>
+                </valItem>
+                <valItem ident="paste-over" mode="add">
+                  <desc>überklebt</desc>
+                </valItem>
+                <valItem ident="covered" mode="add">
+                  <desc>verdeckt</desc>
+                </valItem>
+                <valItem ident="damage" mode="add">
+                  <desc>auf andere Weise beschädigt</desc>
+                </valItem>
+                <valItem ident="incomplete" mode="add">
+                  <desc>auf andere Weise unvollständig</desc>
+                </valItem>
+                <valItem ident="omitted" mode="add">
+                  <desc>irrtümlich ausgelassene Zeichen oder Worte</desc>
+                </valItem>
+              </valList>
+              <datatype>
+                <dataRef key="busoni.reason.gap"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </elementSpec>
+        
+        
+    <!--=============-->
+    <!--== Zusätze ==-->
+    <!--=============-->
+        
+
+<!--PROBLEM: @type-Werte, die nicht in Richtlinien sind: dating, side_note, address, teleprint -->
+<!--PROBLEM: @place required? Ca. 2500 Fehlermeldungen -->
+<!--PROBLEM: @resp fehlt bei ca. 100 Elementen -->
+        <elementSpec ident="note" mode="change">
+          <attList>
+            <attDef ident="type" usage="req" mode="change">
+              <valList type="closed" mode="replace">
+                <valItem ident="footnote">
+                  <gloss>originale Fußnote</gloss>
+                  <desc>Fußnoten werden über das ganze Dokument fortlaufend mit dem Attribut @n gezählt.</desc>
+                </valItem>
+                <valItem ident="annotation">
+                  <gloss>Annotation</gloss>
+                  <desc>Angaben zum Ort auf dem Papier (@place) und zur Schreiberhand (@resp) sind obligatorisch.</desc>
+                </valItem>
+                <valItem ident="foliation">
+                  <gloss>Foliierung</gloss>
+                  <desc>Zählung der Blätter oder Bogen. Angaben zum Ort auf dem Papier (@place) und zur Schreiberhand (@resp) sind obligatorisch.</desc>
+                </valItem>
+                <valItem ident="pagination">
+                  <gloss>Paginierung</gloss>
+                  <desc>Zählung der Seiten. Angaben zum Ort auf dem Papier (@place) und zur Schreiberhand (@resp) sind obligatorisch.</desc>
+                </valItem>
+                <valItem ident="numbering">
+                  <gloss>Nummerierung</gloss>
+                  <desc>Zählung der Korrespondenzstücke. Angaben zum Ort auf dem Papier (@place) und zur Schreiberhand (@resp) sind obligatorisch.</desc>
+                </valItem>
+                <valItem ident="stamp">
+                  <gloss>Stempel</gloss>
+                  <desc>Angaben zum Ort auf dem Papier (@place) und zur Schreiberhand (@resp) sind obligatorisch.</desc>
+                </valItem>
+                <valItem ident="shelfmark">
+                  <gloss>Signatur</gloss>
+                  <desc>Angaben zum Ort auf dem Papier (@place) und zur Schreiberhand (@resp) sind obligatorisch.</desc>
+                </valItem>
+                <valItem ident="label">
+                  <gloss>Post-Aufkleber/Zensurmarken</gloss>
+                  <desc>Angaben zum Ort auf dem Papier (@place) und zur Schreiberhand (@resp) sind obligatorisch.</desc>
+                </valItem>
+                <valItem ident="commentary">
+                  <gloss>Stellenkommentar</gloss>
+                  <desc>Autor ist mit Schlüssel im Attribut @resp aufzuführen.</desc>
+                </valItem>
+                <valItem ident="objdesc">
+                  <gloss>object description</gloss>
+                  <desc>Autor ist mit Schlüssel im Attribut @resp aufzuführen.</desc>
+                </valItem>
+                <valItem ident="dating">
+                  <gloss>Datierungen</gloss>
+                  <desc>Von fremder Hand hinzugefügte Datierungen. Angaben zum Ort auf dem Papier (@place) und zur Schreiberhand (@resp) sind obligatorisch.</desc>
+                </valItem>
+                <valItem ident="address">
+                  <gloss>Adressen</gloss>
+                  <desc>Autor ist mit Schlüssel im Attribut @resp aufzuführen, sofern es sich nicht um die Haupthand handelt.</desc>
+                </valItem>
+                <valItem ident="teleprint">
+                  <gloss>Telegramme</gloss>
+                  <desc>Autor ist mit Schlüssel im Attribut @resp aufzuführen.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+            <attDef ident="subtype" mode="change">
+              <valList type="closed" mode="replace">
+                <valItem ident="ed_diff">
+                  <desc>Abweichung gegenüber vorliegenden Editionen</desc>
+                </valItem>
+                <valItem ident="ed_diff_major">
+                  <desc>bedeutende Abweichung gegenüber vorliegenden Editionen</desc>
+                </valItem>
+                <valItem ident="ed_diff_minor">
+                  <desc>unbedeutende Abweichung gegenüber vorliegenden Editionen</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+          <constraintSpec ident="footnoteCounting" scheme="schematron">
+            <constraint>
+              <sch:report test="@type = 'footnote' and not(@n)">
+                Fußnoten müssen mit dem Attribut 'n' durchgezählt werden.
+              </sch:report>
+            </constraint>
+          </constraintSpec>
+          <constraintSpec ident="notePlacement" scheme="schematron">
+            <constraint>
+              <sch:report test="(@type= 'annotation' or @type= 'foliation' or @type= 'pagination' or @type= 'numbering' or @type= 'stamp' or @type= 'shelfmark' or @type= 'label' or @type= 'dating') and not(@place)">
+                Die Platzierung auf der Seite muss über das Attribut 'place' angegeben werden.
+              </sch:report>
+            </constraint>
+          </constraintSpec>
+          <constraintSpec ident="noteResponsibility" scheme="schematron">
+            <constraint>
+              <sch:report test="(@type= 'annotation' or @type= 'foliation' or @type= 'pagination' or @type= 'numbering' or @type= 'stamp' or @type= 'shelfmark' or @type= 'label' or @type= 'dating' or @type= 'commentary' or @type= 'objdesc') and not(@resp)">
+                Die Schreiberhand muss über das Attribut 'resp' angegeben werden.
+              </sch:report>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+        
+        <!-- Abbildungen und Notenbeispiele -->
+<!--PROBLEM: Bug mit <anyElement> - erlaubt nur andere namespaces -->
+        <elementSpec ident="figure" mode="change">
+          <content>
+            <alternate maxOccurs="unbounded">
+              <elementRef key="figDesc" maxOccurs="1"/>
+              <elementRef key="graphic" minOccurs="1" maxOccurs="1"/>
+              <elementRef key="ab"/>
+              <elementRef key="notatedMusic"/>
+              <elementRef key="note"/>
+            </alternate>
+          </content>
+        </elementSpec>
+        <elementSpec ident="notatedMusic" mode="change">
+          <content>
+            <alternate maxOccurs="unbounded">
+              <elementRef key="ptr" minOccurs="1" maxOccurs="1"/>
+              <elementRef key="graphic" minOccurs="1" maxOccurs="1"/>
+              <elementRef key="desc"/>
+            </alternate>
+          </content>
+        </elementSpec>
+        <elementSpec ident="graphic" mode="change">
+          <attList>
+            <attDef ident="width" mode="change" usage="rec">
+              <datatype>
+                <dataRef key="busoni.pixel"/>
+              </datatype>
+            </attDef>
+            <attDef ident="height" mode="change" usage="rec">
+              <datatype>
+                <dataRef key="busoni.pixel"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </elementSpec>
+        
+        <!-- <choice> -->       
+        <elementSpec ident="choice" mode="change">
+          <content>
+            <alternate>
+              <alternate maxOccurs="unbounded">
+                <elementRef key="abbr" minOccurs="1" maxOccurs="1"/>
+                <elementRef key="expan" minOccurs="1" maxOccurs="1"/>
+              </alternate>
+              <alternate maxOccurs="unbounded">
+                <elementRef key="orig" minOccurs="1" maxOccurs="1"/>
+                <elementRef key="reg" minOccurs="1" maxOccurs="1"/>
+              </alternate>
+              <alternate maxOccurs="unbounded">
+                <elementRef key="sic" minOccurs="1" maxOccurs="1"/>
+                <elementRef key="corr" minOccurs="1" maxOccurs="1"/>
+              </alternate>
+              <elementRef key="unclear" maxOccurs="unbounded"/>
+            </alternate>
+          </content>
+        </elementSpec>
+
+
+
+      </schemaSpec>
+    </body>
+  </text>
+</TEI>
